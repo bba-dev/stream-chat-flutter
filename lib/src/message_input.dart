@@ -93,6 +93,11 @@ class MessageInput extends StatefulWidget {
     this.actions,
     this.actionsLocation = ActionsLocation.left,
     this.attachmentThumbnailBuilders,
+    this.sendIcon,
+    this.messageInputDecoration,
+    this.messageInputBackgroundColor,
+    this.messageInputRadius,
+    this.messageInputTextStyle,
   }) : super(key: key);
 
   /// Message to edit
@@ -137,6 +142,21 @@ class MessageInput extends StatefulWidget {
 
   /// Map that defines a thumbnail builder for an attachment type
   final Map<String, AttachmentThumbnailBuilder> attachmentThumbnailBuilders;
+
+  /// Customize send button icon
+  final Icon sendIcon;
+
+  /// Customize message input textField decoration
+  final InputDecoration messageInputDecoration;
+
+  /// Customize message input background color
+  final Color messageInputBackgroundColor;
+
+  /// Customize message input radius
+  final double messageInputRadius;
+
+  /// Customize message input text style
+  final TextStyle messageInputTextStyle;
 
   @override
   MessageInputState createState() => MessageInputState();
@@ -208,7 +228,8 @@ class MessageInputState extends State<MessageInput> {
         if (widget.actionsLocation == ActionsLocation.left)
           ...widget.actions ?? [],
         _buildTextInput(context),
-        _animateSendButton(context),
+        _buildSendButton(context),
+//        _animateSendButton(context),
         if (widget.actionsLocation == ActionsLocation.right)
           ...widget.actions ?? [],
       ],
@@ -276,9 +297,9 @@ class MessageInputState extends State<MessageInput> {
               _typingStarted = true;
             });
           },
-          style: Theme.of(context).textTheme.bodyText2,
+          style: widget.messageInputTextStyle ?? Theme.of(context).textTheme.bodyText2,
           autofocus: false,
-          decoration: InputDecoration(
+          decoration: widget.messageInputDecoration ?? InputDecoration(
             hintText: 'Write a message',
             prefixText: '   ',
             border: InputBorder.none,
@@ -294,30 +315,31 @@ class MessageInputState extends State<MessageInput> {
         width: MediaQuery.of(context).size.width,
         padding: EdgeInsets.all(2),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10.0),
-          gradient: _getGradient(context),
+          borderRadius: BorderRadius.circular(widget.messageInputRadius ?? 10.0),
+          color: widget.messageInputBackgroundColor
+              ?? StreamChatTheme.of(context).channelTheme.inputBackground,
+//          gradient: _getGradient(context),
         ),
-        child: Container(
-          decoration: BoxDecoration(
-            color: StreamChatTheme.of(context)
-                .channelTheme
-                .inputBackground
-                .withAlpha(255),
-            borderRadius: BorderRadius.circular(10.0),
-          ),
-          child: Container(
-            decoration: BoxDecoration(
-              color: StreamChatTheme.of(context).channelTheme.inputBackground,
-              borderRadius: BorderRadius.circular(10.0),
-              border: Border.all(
-                  color: _typingStarted
-                      ? Colors.transparent
-                      : Theme.of(context).brightness == Brightness.dark
-                          ? Colors.white.withOpacity(.2)
-                          : Colors.black.withOpacity(.2)),
-            ),
-          ),
-        ),
+//        child: Container(
+//          decoration: BoxDecoration(
+//            color: widget.messageInputBackgroundColor.withAlpha(255)
+//                ?? StreamChatTheme.of(context).channelTheme.inputBackground.withAlpha(255),
+//            borderRadius: BorderRadius.circular(widget.messageInputRadius ?? 10.0),
+//          ),
+//          child: Container(
+//            decoration: BoxDecoration(
+//              color: widget.messageInputBackgroundColor
+//                  ?? StreamChatTheme.of(context).channelTheme.inputBackground,
+//              borderRadius: BorderRadius.circular(widget.messageInputRadius ?? 10.0),
+//              border: Border.all(
+//                  color: _typingStarted
+//                      ? Colors.transparent
+//                      : Theme.of(context).brightness == Brightness.dark
+//                          ? Colors.white.withOpacity(.2)
+//                          : Colors.black.withOpacity(.2)),
+//            ),
+//          ),
+//        ),
       ),
     );
   }
@@ -843,7 +865,7 @@ class MessageInputState extends State<MessageInput> {
           onPressed: () {
             sendMessage();
           },
-          icon: Icon(
+          icon: widget.sendIcon ?? Icon(
             Icons.send,
             color: StreamChatTheme.of(context).accentColor,
           ),
