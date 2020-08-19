@@ -99,6 +99,7 @@ class MessageInput extends StatefulWidget {
     this.messageInputRadius,
     this.messageInputTextStyle,
     this.attachmentUseCamera = false,
+    this.attachmentIcon,
   }) : super(key: key);
 
   /// Message to edit
@@ -146,6 +147,9 @@ class MessageInput extends StatefulWidget {
 
   /// Customize send button icon
   final Icon sendIcon;
+
+  /// Customize attachment button icon
+  final Icon attachmentIcon;
 
   /// Customize message input textField decoration
   final InputDecoration messageInputDecoration;
@@ -641,7 +645,7 @@ class MessageInputState extends State<MessageInput> {
         onPressed: () {
           showAttachmentModal();
         },
-        icon: Icon(
+        icon: widget.attachmentIcon ?? Icon(
           Icons.add_circle_outline,
         ),
       ),
