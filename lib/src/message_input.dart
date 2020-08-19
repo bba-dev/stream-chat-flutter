@@ -297,13 +297,15 @@ class MessageInputState extends State<MessageInput> {
               _typingStarted = true;
             });
           },
-          style: widget.messageInputTextStyle ?? Theme.of(context).textTheme.bodyText2,
+          style: widget.messageInputTextStyle ??
+              Theme.of(context).textTheme.bodyText2,
           autofocus: false,
-          decoration: widget.messageInputDecoration ?? InputDecoration(
-            hintText: 'Write a message',
-            prefixText: '   ',
-            border: InputBorder.none,
-          ),
+          decoration: widget.messageInputDecoration ??
+              InputDecoration(
+                hintText: 'Write a message',
+                prefixText: '   ',
+                border: InputBorder.none,
+              ),
         ),
       ),
     );
@@ -315,9 +317,10 @@ class MessageInputState extends State<MessageInput> {
         width: MediaQuery.of(context).size.width,
         padding: EdgeInsets.all(2),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(widget.messageInputRadius ?? 10.0),
-          color: widget.messageInputBackgroundColor
-              ?? StreamChatTheme.of(context).channelTheme.inputBackground,
+          borderRadius:
+              BorderRadius.circular(widget.messageInputRadius ?? 10.0),
+          color: widget.messageInputBackgroundColor ??
+              StreamChatTheme.of(context).channelTheme.inputBackground,
 //          gradient: _getGradient(context),
         ),
 //        child: Container(
@@ -647,71 +650,73 @@ class MessageInputState extends State<MessageInput> {
       _focusNode.unfocus();
     }
 
-    showModalBottomSheet(
-        clipBehavior: Clip.hardEdge,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(32),
-            topRight: Radius.circular(32),
-          ),
-        ),
-        context: context,
-        isScrollControlled: true,
-        builder: (_) {
-          return Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              ListTile(
-                title: Text(
-                  'Add a file',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              ListTile(
-                leading: Icon(Icons.image),
-                title: Text('Upload a photo'),
-                onTap: () {
-                  pickFile(DefaultAttachmentTypes.image, false);
-                  Navigator.pop(context);
-                },
-              ),
-              ListTile(
-                leading: Icon(Icons.video_library),
-                title: Text('Upload a video'),
-                onTap: () {
-                  pickFile(DefaultAttachmentTypes.video, false);
-                  Navigator.pop(context);
-                },
-              ),
-              ListTile(
-                leading: Icon(Icons.camera_alt),
-                title: Text('Photo from camera'),
-                onTap: () {
-                  pickFile(DefaultAttachmentTypes.image, true);
-                  Navigator.pop(context);
-                },
-              ),
-              ListTile(
-                leading: Icon(Icons.videocam),
-                title: Text('Video from camera'),
-                onTap: () {
-                  pickFile(DefaultAttachmentTypes.video, true);
-                  Navigator.pop(context);
-                },
-              ),
-              ListTile(
-                leading: Icon(Icons.insert_drive_file),
-                title: Text('Upload a file'),
-                onTap: () {
-                  pickFile(DefaultAttachmentTypes.file, false);
-                  Navigator.pop(context);
-                },
-              ),
-            ],
-          );
-        });
+    pickFile(DefaultAttachmentTypes.image, false);
+
+//    showModalBottomSheet(
+//        clipBehavior: Clip.hardEdge,
+//        shape: RoundedRectangleBorder(
+//          borderRadius: BorderRadius.only(
+//            topLeft: Radius.circular(32),
+//            topRight: Radius.circular(32),
+//          ),
+//        ),
+//        context: context,
+//        isScrollControlled: true,
+//        builder: (_) {
+//          return Column(
+//            mainAxisSize: MainAxisSize.min,
+//            children: <Widget>[
+//              ListTile(
+//                title: Text(
+//                  'Add a file',
+//                  style: TextStyle(
+//                    fontWeight: FontWeight.bold,
+//                  ),
+//                ),
+//              ),
+//              ListTile(
+//                leading: Icon(Icons.image),
+//                title: Text('Photo'),
+//                onTap: () {
+//                  pickFile(DefaultAttachmentTypes.image, false);
+//                  Navigator.pop(context);
+//                },
+//              ),
+//              ListTile(
+//                leading: Icon(Icons.video_library),
+//                title: Text('Upload a video'),
+//                onTap: () {
+//                  pickFile(DefaultAttachmentTypes.video, false);
+//                  Navigator.pop(context);
+//                },
+//              ),
+//              ListTile(
+//                leading: Icon(Icons.camera_alt),
+//                title: Text('Camera'),
+//                onTap: () {
+//                  pickFile(DefaultAttachmentTypes.image, true);
+//                  Navigator.pop(context);
+//                },
+//              ),
+//              ListTile(
+//                leading: Icon(Icons.videocam),
+//                title: Text('Video from camera'),
+//                onTap: () {
+//                  pickFile(DefaultAttachmentTypes.video, true);
+//                  Navigator.pop(context);
+//                },
+//              ),
+//              ListTile(
+//                leading: Icon(Icons.insert_drive_file),
+//                title: Text('Upload a file'),
+//                onTap: () {
+//                  pickFile(DefaultAttachmentTypes.file, false);
+//                  Navigator.pop(context);
+//                },
+//              ),
+//            ],
+//          );
+//        });
   }
 
   /// Add an attachment to the sending message
@@ -865,10 +870,11 @@ class MessageInputState extends State<MessageInput> {
           onPressed: () {
             sendMessage();
           },
-          icon: widget.sendIcon ?? Icon(
-            Icons.send,
-            color: StreamChatTheme.of(context).accentColor,
-          ),
+          icon: widget.sendIcon ??
+              Icon(
+                Icons.send,
+                color: StreamChatTheme.of(context).accentColor,
+              ),
         ),
       ),
     );
