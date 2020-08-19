@@ -98,6 +98,7 @@ class MessageInput extends StatefulWidget {
     this.messageInputBackgroundColor,
     this.messageInputRadius,
     this.messageInputTextStyle,
+    this.attachmentUseCamera = false,
   }) : super(key: key);
 
   /// Message to edit
@@ -157,6 +158,9 @@ class MessageInput extends StatefulWidget {
 
   /// Customize message input text style
   final TextStyle messageInputTextStyle;
+
+  /// If true the attachments button will open camera instead of gallery
+  final bool attachmentUseCamera;
 
   @override
   MessageInputState createState() => MessageInputState();
@@ -650,7 +654,7 @@ class MessageInputState extends State<MessageInput> {
       _focusNode.unfocus();
     }
 
-    pickFile(DefaultAttachmentTypes.image, false);
+    pickFile(DefaultAttachmentTypes.image, widget.attachmentUseCamera);
 
 //    showModalBottomSheet(
 //        clipBehavior: Clip.hardEdge,
