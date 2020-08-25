@@ -1,3 +1,11 @@
+## 0.2.5
+
+- Implement `didUpdateWidget` in `ChannelListView` to react to setState
+
+## 0.2.4
+
+- Update llc dependency
+
 ## 0.2.3
 
 - Add `lockChannelsOrder` parameter to `ChannelsBloc`
