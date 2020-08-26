@@ -97,6 +97,9 @@ class MessageWidget extends StatefulWidget {
   /// The function called when tapping on UserAvatar
   final void Function(User) onUserAvatarTap;
 
+  /// The function called when tapping on a link
+  final void Function(String) onLinkTap;
+
   final List<Read> readList;
 
   /// customize on sent indicator
@@ -134,6 +137,7 @@ class MessageWidget extends StatefulWidget {
     this.showDeleteMessage = true,
     this.showEditMessage = true,
     this.onUserAvatarTap,
+    this.onLinkTap,
     this.onMessageActions,
     this.editMessageInputBuilder,
     this.textBuilder,
@@ -783,6 +787,7 @@ class _MessageWidgetState extends State<MessageWidget> {
     return widget.textBuilder != null
         ? widget.textBuilder(context, widget.message)
         : MessageText(
+            onLinkTap: widget.onLinkTap,
             message: widget.message,
             onMentionTap: widget.onMentionTap,
             messageTheme: widget.messageTheme,
